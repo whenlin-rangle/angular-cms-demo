@@ -1,0 +1,21 @@
+{
+  "name": "my-lib",
+  "version": "1.0.0",
+  "description": "Library that facilitates interacting with Contentful CMS",
+  "scripts": {
+    "build": "tsc -p tsconfig.schematics.json",
+    "postbuild": "copyfiles schematics/*/schema.json schematics/*/files/** schematics/* ../../dist/my-lib/"
+  },
+  "schematics": "./schematics/collections.json",
+  "peerDependencies": {
+    "@angular/common": "^7.2.0",
+    "@angular/core": "^7.2.0"
+  },
+  "ng-add": {
+    "save": "devDependencies"
+  },
+  "devDependencies": {
+    "copyfiles": "file:../../node_modules/copyfiles",
+    "typescript": "file:../../node_modules/typescript"
+  }
+}

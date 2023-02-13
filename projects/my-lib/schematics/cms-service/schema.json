@@ -1,0 +1,32 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "SchematicsCMSService",
+    "title": "My CMS Service Schema",
+    "type": "object",
+    "properties": {
+      "name": {
+        "description": "The name of the service.",
+        "type": "string"
+      },
+      "contentType": {
+        "description": "The type of content to fetch.",
+        "type": "string"
+      },
+      "path": {
+        "type": "string",
+        "format": "path",
+        "description": "The path to create the service.",
+        "visible": false
+      },
+      "project": {
+        "type": "string",
+        "description": "The name of the project.",
+        "$default": {
+          "$source": "projectName"
+        }
+      }
+     },
+    "required": [
+      "name"
+    ]
+  }

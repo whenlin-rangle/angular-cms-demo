@@ -1,0 +1,24 @@
+import { Injectable } from '@angular/core';
+import  * as contentful from 'contentful';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ContentfulService {
+
+  // TODO: insert spaceID and accessToken for your Contentful space
+  private client = contentful.createClient({
+    space: 'foo',
+    accessToken: 'foo',
+  });
+
+  constructor() { }
+
+  async get<%= classify(name) %>(query?: object): Promise<contentful.Entry<any>[]> {
+    return this.client.getEntries(Object.assign({
+      content_type: <%= dasherize(name) %>
+    }, query))
+    .then(res => res.items);
+  }
+
+}

@@ -16,7 +16,7 @@ export class ContentfulService {
 
   async get<%= classify(name) %>(query?: object): Promise<contentful.Entry<any>[]> {
     return this.client.getEntries(Object.assign({
-      content_type: <%= dasherize(name) %>
+      content_type: '<%= dasherize(name) %>'
     }, query))
     .then(res => res.items);
   }

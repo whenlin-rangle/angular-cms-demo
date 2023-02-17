@@ -1,0 +1,34 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "AddCmsMethodSchema",
+    "type": "object",
+    "properties": {
+      "name": {
+        "description": "The name of the existing service to update.",
+        "type": "string"
+      },
+      "functionName": {
+        "description": "The name of the function to be added to the service.",
+        "type": "string"
+      },
+      "path": {
+        "type": "string",
+        "format": "path",
+        "visible": false
+      },
+      "project": {
+        "type": "string",
+        "description": "The name of the project.",
+        "$default": {
+          "$source": "projectName"
+        }
+      },
+      "contentType": {
+        "description": "The id of the content type to fetch.",
+        "type": "string"
+      }
+    },
+    "required": [
+      "contentType", "name", "functionName"
+    ]
+  }

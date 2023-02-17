@@ -5,7 +5,7 @@
         "description": "Add my library to the project.",
         "factory": "./ng-add/index#ngAdd"
       },
-      "my-service": {
+      "new-cms-service": {
         "description": "Generate a service in the project.",
         "factory": "./cms-service/index#myService",
         "schema": "./cms-service/schema.json"

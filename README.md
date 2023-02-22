@@ -16,7 +16,7 @@ The name parameter here specifies the name of the file to create (e.g. `cars.ser
 # How to update an existing CMS service
 - Run a ng generate command with the required flags (similar to the example below) to update an existing Contentful service with a new method.
 The name parameter here specifies the name of the file to update (e.g. `cars.service.ts`). 
-The functionName parameter specifies the name of the function to be inserted into the service file.
+The methodName parameter specifies the name of the function to be inserted into the service file.
 The contentType parameter specifies the ID associated with the content type that is trying to be retrieved.
 
-	Example: `ng g my-lib:add-cms-method --name cars --function-name drivers --content-type driver`
+	Example: `ng g my-lib:add-cms-method --name cars --method-name drivers --content-type driver`

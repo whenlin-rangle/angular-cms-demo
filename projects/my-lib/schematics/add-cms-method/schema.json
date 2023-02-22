@@ -7,7 +7,7 @@
         "description": "The name of the existing service to update.",
         "type": "string"
       },
-      "functionName": {
+      "methodName": {
         "description": "The name of the function to be added to the service.",
         "type": "string"
       },
@@ -29,6 +29,6 @@
       }
     },
     "required": [
-      "contentType", "name", "functionName"
+      "contentType", "name", "methodName"
     ]
   }

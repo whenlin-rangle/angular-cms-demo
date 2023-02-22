@@ -2,8 +2,8 @@ export interface Schema {
     // The name of the service.
     name: string;
 
-    // The name of the function to be added.
-    functionName: string;
+    // The name of the method to be added.
+    methodName: string;
 
     // The type of content to fetch.
     contentType: string;

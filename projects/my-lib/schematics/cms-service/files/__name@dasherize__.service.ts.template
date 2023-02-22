@@ -4,7 +4,7 @@ import  * as contentful from 'contentful';
 @Injectable({
   providedIn: 'root'
 })
-export class ContentfulService {
+export class <%= classify(name) %>Service {
 
   // TODO: insert spaceID and accessToken for your Contentful space
   private client = contentful.createClient({

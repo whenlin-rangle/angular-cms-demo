@@ -6,7 +6,7 @@ import {
  import { parseName } from '@schematics/angular/utility/parse-name';
 import * as ts from 'typescript';
 import { getSourceNodes } from '@schematics/angular/utility/ast-utils';
-import { findMethodNodes, findServiceClassNode, getLastPosition } from './utils/utils';
+import { findMethodNodes, findServiceClassNode, getImmediateIdentifierChild, getLastPosition } from './utils/utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 import { Schema as OptionsSchema} from './schema'
 
@@ -22,7 +22,7 @@ export function addCmsMethod(_options: OptionsSchema): Rule {
         const filePath = determineTargetFilePath(workspaceConfigBuffer, _options);
 
         const nodes: ts.Node[] = getASTFromSourceFilePath(tree, filePath);
-        const lastPositionOfMethod = getLastPositionOfMethod(nodes);
+        const lastPositionOfMethod = getLastPositionOfMethod(nodes, _options.methodName);
         const methodAddChange = createInsertChange(filePath, lastPositionOfMethod!, _options);
         updateTree(tree, filePath, methodAddChange);
 
@@ -62,7 +62,7 @@ function getASTFromSourceFilePath(tree: Tree, filePath: string): ts.Node[] {
     return nodes;
 }
 
-function getLastPositionOfMethod(nodes: ts.Node[]) {
+function getLastPositionOfMethod(nodes: ts.Node[], methodName: string) {
     const serviceClassNode = findServiceClassNode(nodes[0]);
     if (!serviceClassNode) {
         throw new SchematicsException(`Did not find a service class node`);
@@ -70,8 +70,18 @@ function getLastPositionOfMethod(nodes: ts.Node[]) {
 
     const methodNodes = findMethodNodes(serviceClassNode);
 
-    if (methodNodes && methodNodes.length === 0) {
+    if (methodNodes.length === 0) {
         throw new SchematicsException('Did not find any methods in the service class');
+    }
+
+    const methodDoesNotExist = methodNodes.every(node => {
+        let identifier = getImmediateIdentifierChild(node)?.getText().toLowerCase();
+        let _methodName = 'get' + methodName.toLowerCase();
+        return identifier !== _methodName;
+    });
+
+    if (!methodDoesNotExist) {
+        throw new SchematicsException('A method with that name already exists');
     }
 
     const lastMethodNode = methodNodes.pop();
@@ -82,9 +92,9 @@ function getLastPositionOfMethod(nodes: ts.Node[]) {
 
 function createInsertChange(filePath: string, lastPositionOfMethod: number, _options: OptionsSchema) {
 
-    const { contentType, functionName } = _options;
+    const { contentType, methodName } = _options;
 
-    const name = functionName.charAt(0).toUpperCase() + functionName.slice(1).toLowerCase();
+    const name = methodName.charAt(0).toUpperCase() + methodName.slice(1).toLowerCase();
 
     const methodToAdd = `   async get${name}(query?: object): Promise<contentful.Entry<any>[]> {\n` +
         `\t return this.client.getEntries(Object.assign({ \n` +

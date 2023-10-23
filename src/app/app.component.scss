@@ -1,0 +1,33 @@
+.list-container {
+  .list-button-container {
+  }
+
+  .list-content-container {
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: space-between;
+  }
+}
+
+.form-container {
+  width: 100%;
+  display: flex;
+
+  // form {
+  //     .form-fields-container {
+  //         display: flex;
+  //         align-items: center;
+
+  //         div {
+  //             input {
+  //                 vertical-align: top;
+  //             }
+  //         }
+  //     }
+  // }
+}
+
+.car-card {
+  max-width: 400px;
+  margin-bottom: 8px;
+}

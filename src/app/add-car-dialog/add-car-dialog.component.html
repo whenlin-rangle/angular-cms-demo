@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Add Car</h1>
+<form [formGroup]="carForm" mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Make</mat-label>
+    <input
+      matInput
+      formControlName="make"
+      placeholder="Enter Make of car here"
+      type="text"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Model</mat-label>
+    <input
+      matInput
+      formControlName="model"
+      placeholder="Enter Model of car here"
+      type="text"
+    />
+  </mat-form-field>
+  <ng-container>
+    <label>Image to be Uploaded</label>
+    <button mat-raised-button color="primary" (click)="fileInput.click()">
+      Select File
+    </button>
+    <input
+      #fileInput
+      formControlName="image"
+      (change)="onFileSelected($event)"
+      type="file"
+      hidden
+    />
+  </ng-container>
+</form>
+<div mat-dialog-actions>
+  <button mat-flat-button (click)="onCancel()">Cancel</button>
+  <button mat-flat-button (click)="onSubmit()" color="primary" cdkFocusInitial>
+    Add Car
+  </button>
+</div>
